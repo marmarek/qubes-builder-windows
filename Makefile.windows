@@ -154,6 +154,8 @@ QUBES_BIN = $(shell mkdir -p $(CHROOT_DIR)/build-deps/bin && cd $(CHROOT_DIR)/bu
 TMP := $(shell cd $(TMP) && pwd -W 2>/dev/null| sed 's:/:\\\\:g')
 TEMP := $(TMP)
 
+export QUBES_INCLUDES QUBES_LIBS QUBES_BIN
+
 SIGNTOOL := "$(shell find "$(WDK10_PATH)" "$(WDK8_PATH)" "$(DDK_PATH)" -path "*/$(DDK_ARCH)/signtool.exe" 2>/dev/null |head -1)"
 MAKECERT := "$(shell find "$(WDK10_PATH)" "$(WDK8_PATH)" "$(DDK_PATH)" -path "*/$(DDK_ARCH)/makecert.exe" 2>/dev/null |head -1)"
 
