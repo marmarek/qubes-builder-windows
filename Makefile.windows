@@ -196,13 +196,13 @@ dist-build-dep:
 	@mkdir -p $(CHROOT_DIR)/build-deps/include
 	@for dep in $(WIN_BUILD_DEPS); do \
 		if [ -d $(BUILDER_REPO_DIR)/$$dep/bin ]; then \
-			cp -t $(CHROOT_DIR)/build-deps/bin $(BUILDER_REPO_DIR)/$$dep/bin/*; \
+			cp -r -t $(CHROOT_DIR)/build-deps/bin $(BUILDER_REPO_DIR)/$$dep/bin/*; \
 		fi; \
 		if [ -d $(BUILDER_REPO_DIR)/$$dep/lib ]; then \
-			cp -t $(CHROOT_DIR)/build-deps/lib $(BUILDER_REPO_DIR)/$$dep/lib/*; \
+			cp -r -t $(CHROOT_DIR)/build-deps/lib $(BUILDER_REPO_DIR)/$$dep/lib/*; \
 		fi; \
 		if [ -d $(BUILDER_REPO_DIR)/$$dep/include ]; then \
-			cp -t $(CHROOT_DIR)/build-deps/include $(BUILDER_REPO_DIR)/$$dep/include/*; \
+			cp -r -t $(CHROOT_DIR)/build-deps/include $(BUILDER_REPO_DIR)/$$dep/include/*; \
 		fi; \
 	done
 
@@ -261,21 +261,21 @@ ifneq (,$(WIN_OUTPUT_LIBS))
 	@mkdir -p $(BUILDER_REPO_DIR)/$(COMPONENT)/lib
 	@for file in $(CHROOT_DIR)/$(DIST_SRC)/$(PACKAGE)/$(WIN_OUTPUT_LIBS)/*/*; do\
 		echo "      lib/`basename $$file`" >&3 ;\
-		mv -t $(BUILDER_REPO_DIR)/$(COMPONENT)/lib/ $$file || exit 1;\
+		cp -r -t $(BUILDER_REPO_DIR)/$(COMPONENT)/lib/ $$file || exit 1;\
 	done
 endif
 ifneq (,$(WIN_OUTPUT_HEADERS))
 	@mkdir -p $(BUILDER_REPO_DIR)/$(COMPONENT)/include
 	@for file in $(CHROOT_DIR)/$(DIST_SRC)/$(PACKAGE)/$(WIN_OUTPUT_HEADERS)/*.h; do\
 		echo "      include/`basename $$file`" >&3 ;\
-		mv -t $(BUILDER_REPO_DIR)/$(COMPONENT)/include/ $$file || exit 1;\
+		cp -r -t $(BUILDER_REPO_DIR)/$(COMPONENT)/include/ $$file || exit 1;\
 	done
 endif
 ifneq (,$(WIN_OUTPUT_BIN))
 	@mkdir -p $(BUILDER_REPO_DIR)/$(COMPONENT)/bin
 	@for file in $(CHROOT_DIR)/$(DIST_SRC)/$(PACKAGE)/$(WIN_OUTPUT_BIN)/*/*; do\
 		echo "      bin/`basename $$file`" >&3 ;\
-		mv -t $(BUILDER_REPO_DIR)/$(COMPONENT)/bin/ $$file || exit 1;\
+		cp -r -t $(BUILDER_REPO_DIR)/$(COMPONENT)/bin/ $$file || exit 1;\
 	done
 endif
 
